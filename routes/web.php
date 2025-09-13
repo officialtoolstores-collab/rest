@@ -11,12 +11,9 @@ use App\Http\Controllers\BillingController;
 	Route::middleware('auth')->group(function () {
 	    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 	    // заглушка для поповнення — пізніше підключимо Fondy/LiqPay
-	        Route::get('/billing/topup', [BillingController::class, 'create'])->name('billing.topup');
+	    Route::get('/billing/topup', [BillingController::class, 'create'])->name('billing.topup');
+	    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    	Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
 						
 	});
 
-	// Профіль (окрема наша сторінка)
-    Route::get('/profile', [ProfileController::class, 'show'])
-        ->name('profile.page');
-    Route::post('/profile', [ProfileController::class, 'update'])
-        ->name('profile.update');

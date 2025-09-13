@@ -4,25 +4,36 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
-    public function show()
+    public function edit(Request $request)
     {
-        return view('profile.index', ['user' => auth()->user()]);
+        return view('profile.edit', [
+            'user' => $request->user(),
+        ]);
     }
 
     public function update(Request $request)
     {
         $user = $request->user();
 
-        $data = $request->validate([
-            'name'  => ['required','string','max:255'],
-            'email' => ['required','email','max:255', Rule::unique('users')->ignore($user->id)],
+        $validated = $request->validate([
+            'name' => ['required','string','max:255'],
+            'email' => ['required','email','max:255', Rule::unique('users','email')->ignore($user->id)],
+            'password' => ['nullable','confirmed','min:8'],
         ]);
 
-        $user->update($data);
+        $user->name = $validated['name'];
+        $user->email = $validated['email'];
 
-        return back()->with('status', 'Профіль оновлено');
+        if (!empty($validated['password'])) {
+            $user->password = Hash::make($validated['password']);
+        }
+
+        $user->save();
+
+        return back()->with('status', 'Профіль оновлено.');
     }
 }

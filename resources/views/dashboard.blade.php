@@ -24,7 +24,8 @@
   <nav class="d-flex justify-content-between align-items-center mb-4">
     <div class="fw-semibold">Вітаю, {{ $user->name }}</div>
     <div class="d-flex gap-2">
-      <a class="btn btn-outline-secondary" href="{{ route('profile.show') }}">Профіль</a>
+      <a href="{{ route('profile.edit') }}" class="btn btn-outline-secondary w-100">Профіль</a>
+
       <form method="POST" action="{{ route('logout') }}">
         @csrf
         <button class="btn btn-outline-danger" type="submit">Вийти</button>

@@ -36,8 +36,8 @@ class User extends Authenticatable implements FilamentUser
         return (bool) $this->is_admin;
     }
     public function tokenUsages()
-{
-    return $this->hasMany(\App\Models\TokenUsage::class);
-}
+	{
+	    return $this->hasMany(\App\Models\TokenUsage::class);
+	}
 
 }

@@ -1,16 +1,12 @@
-<div class="d-flex justify-content-between align-items-center mb-3">
-  <div>
-    Привіт, {{ $user->name }}!
-  </div>
+<nav class="mb-4 d-flex gap-3 align-items-center">
+  <span>Вітаю, {{ $user->name }}</span>
 
-  <div class="d-flex gap-3">
-    <a href="{{ route('profile.show') }}" class="btn btn-outline-secondary btn-sm">
-      Налаштування профілю
-    </a>
+  {{-- Профіль (Jetstream/Fortify) --}}
+  <a href="{{ route('profile.show') }}">Профіль</a>
 
-    <form method="POST" action="{{ route('logout') }}">
+  {{-- Вийти --}}
+  <form method="POST" action="{{ route('logout') }}" class="d-inline">
       @csrf
-      <button type="submit" class="btn btn-outline-danger btn-sm">Вийти</button>
-    </form>
-  </div>
-</div>
+      <button type="submit">Вийти</button>
+  </form>
+</nav>

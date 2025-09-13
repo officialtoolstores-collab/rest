@@ -3,15 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\TokenUsage;
+use Illuminate\Http\Request;
+
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $usages = TokenUsage::where('user_id', auth()->id())
-            ->orderByDesc('created_at')
-            ->paginate(15);
+        $user = $request->user();
 
-        return view('dashboard', compact('usages'));
+        $usages = $user->tokenUsages()
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
+
+        return view('dashboard', compact('user', 'usages'));
     }
 }

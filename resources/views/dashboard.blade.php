@@ -1,4 +1,9 @@
 {{-- resources/views/dashboard.blade.php --}}
+@extends('layouts.app')
+@section('content')
+  {{-- твій існуючий вміст дашборду --}}
+@endsection
+
 <!doctype html>
 <html lang="uk">
 <head>

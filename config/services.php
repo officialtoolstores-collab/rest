@@ -34,5 +34,8 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
+    'tokens' => [
+        'price_usdt' => env('TOKEN_PRICE_USDT', 5),
+    ],
 
 ];

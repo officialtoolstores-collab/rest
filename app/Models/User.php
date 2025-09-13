@@ -2,17 +2,37 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+// якщо використовуєш Filament:
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements FilamentUser
 {
+    use Notifiable;
+
+    // Дозволені для масового присвоєння поля
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+    ];
+
+    // Сховати в JSON/масивах
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    // Кастинги (не обов'язково, але корисно)
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
+
+    // Тимчасово пускаємо всіх логінених в адмінку (якщо треба)
     public function canAccessPanel(Panel $panel): bool
     {
-        // Поки що пускаємо всіх залогінених (спростимо)
-        return true; 
-        // Або зроби прапорець is_admin і перевіряй його
+        return true; // потім зробимо is_admin
     }
 }

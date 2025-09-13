@@ -12,7 +12,6 @@ class DashboardController extends Controller
             ->orderByDesc('created_at')
             ->paginate(15);
 
-        // Сюди ж можеш підтягнути баланс, якщо зберігаєш його в окремій таблиці
         return view('dashboard', compact('usages'));
     }
 }

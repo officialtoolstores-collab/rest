@@ -33,6 +33,6 @@ class User extends Authenticatable implements FilamentUser
     // Тимчасово пускаємо всіх логінених в адмінку (якщо треба)
     public function canAccessPanel(Panel $panel): bool
     {
-        return true; // потім зробимо is_admin
+        return (bool) $this->is_admin;
     }
 }

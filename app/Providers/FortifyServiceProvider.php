@@ -37,6 +37,20 @@ class FortifyServiceProvider extends ServiceProvider
 		    Fortify::resetPasswordView(fn ($request) => view('auth.reset-password', ['request' => $request]));
 		    Fortify::twoFactorChallengeView(fn () => view('auth.two-factor-challenge'));
 		    
+		    // ������ Лімітер для логіна (власне "login" у throttle:login)
+		    RateLimiter::for('login', function (Request $request) {
+		        $email = (string) $request->input('email');
+
+		        // 10 спроб за хвилину на пару email+IP
+		        return Limit::perMinute(10)->by($email.$request->ip());
+		    });
+
+		    // ������ Лімітер для two-factor (використовується Fortify)
+		    RateLimiter::for('two-factor', function (Request $request) {
+		        // 10 спроб за хвилину на сесію логіна
+		        return Limit::perMinute(10)->by($request->session()->get('login.id'));
+		    });
+		    
 		    Fortify::createUsersUsing(CreateNewUser::class);
 		    Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
 			Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);

@@ -26,7 +26,7 @@
       <ul class="navbar-nav ms-auto align-items-center gap-2">
         @auth
           <li class="nav-item">
-            <a class="btn btn-outline-secondary" href="{{ route('profile.show') }}">Профіль</a>
+            <a class="btn btn-outline-secondary" href="{{ route('profile.edit') }}">Профіль</a>
           </li>
           <li class="nav-item">
             <form method="POST" action="{{ route('logout') }}">

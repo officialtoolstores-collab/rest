@@ -2,7 +2,6 @@
 @extends('layouts.app')
 @section('content')
   {{-- твій існуючий вміст дашборду --}}
-@endsection
 
 <!doctype html>
 <html lang="uk">
@@ -94,6 +93,7 @@
     </div>
   </div>
 </div>
+@endsection
 
 <script>
 const labels = @json($chartLabels ?? []);
